@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -27,7 +29,12 @@ export class ProductController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    const products = this.productService.findOne(+id);
+    if (!products) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return products;
   }
 
   @Patch(':id')

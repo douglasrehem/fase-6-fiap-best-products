@@ -1,7 +1,9 @@
 export class Restaurant {
+  id: number;
   name: string;
 
-  constructor(name) {
+  constructor(id: number, name: string) {
+    this.id = id;
     this.name = name;
   }
 }
